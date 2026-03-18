@@ -11,7 +11,7 @@
 <div class="flex min-h-screen">
 
     <!-- Sidebar -->
-    <aside class="w-64 bg-gray-900 text-white flex flex-col p-4">
+    <aside class="w-64 bg-gray-900 text-white p-4 flex flex-col">
         <h2 class="text-xl font-bold mb-6">Admin Panel</h2>
 
         <a href="/admin/dashboard" class="block px-3 py-2 rounded hover:bg-gray-700">Dashboard</a>
@@ -29,12 +29,10 @@
     <!-- Main Content -->
     <div class="flex-1">
 
-        <!-- Header -->
-        <header class="bg-white shadow p-4 flex justify-between">
-            <h1 class="font-bold">{{ auth()->user()->name }}</h1>
+        <header class="bg-white shadow p-4">
+            <h1 class="text-lg font-bold">Admin</h1>
         </header>
 
-        <!-- Page Content -->
         <main class="p-6">
             @yield('content')
         </main>
