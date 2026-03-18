@@ -4,7 +4,7 @@
 
 <div class="max-w-5xl mx-auto mt-6">
 
-    <h2 class="text-2xl font-bold mb-6">My Classes</h2>
+    <h2 class="text-2xl font-bold mb-6 text-gray-800 dark:text-white">My Classes</h2>
 
     @foreach($classes as $class)
         <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 mb-6">

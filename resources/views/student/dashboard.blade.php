@@ -2,58 +2,47 @@
 
 @section('content')
 
-<div class="max-w-6xl mx-auto mt-8">
+<div class="max-w-6xl mx-auto p-6">
 
-    <h2 class="text-2xl font-bold mb-6 text-gray-800 dark:text-white">
-        Student Dashboard
-    </h2>
+    <h2 class="text-2xl font-bold mb-6 text-gray-800 dark:text-white">My Classes</h2>
+	
+	
 
-    <!-- Stats -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+    @if($classes->isEmpty())
 
-        <div class="bg-white dark:bg-gray-900 p-6 rounded-lg shadow">
-            <p class="text-gray-500 dark:text-gray-400">Enrolled Classes</p>
-            <h3 class="text-3xl font-bold text-gray-900 dark:text-white">
-                {{ $totalEnrollments }}
-            </h3>
+        <div class="bg-yellow-100 text-yellow-700 p-4 rounded">
+            You are not enrolled in any classes yet.
         </div>
 
-    </div>
+    @else
 
-    <!-- Browse Classes Button -->
-    <div class="mb-8">
-        <a href="/classes"
-           class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition">
-            Browse Classes
-        </a>
-    </div>
+        <div class="grid grid-cols-3 gap-4">
 
-    <!-- Enrolled Classes -->
-    <div class="bg-white dark:bg-gray-900 p-6 rounded-lg shadow">
+            @foreach($classes as $class)
+                <div class="bg-white p-4 rounded shadow">
 
-        <h3 class="text-lg font-semibold mb-4 text-gray-800 dark:text-white">
-            Your Classes
-        </h3>
+                    <h3 class="font-bold text-lg">
+                        {{ $class->title }}
+                    </h3>
 
-        @forelse($enrollments as $enroll)
-            <div class="border-b py-3">
+                    <p class="text-sm text-gray-600 mt-1">
+                        Teacher: {{ $class->teacher->name ?? 'Not Assigned' }}
+                    </p>
 
-                <p class="font-medium text-gray-900 dark:text-white">
-                    {{ $enroll->class->title }}
-                </p>
+                    <p class="text-sm mt-2">
+                        {{ $class->description ?? 'No description available' }}
+                    </p>
 
-                <p class="text-sm text-gray-500 dark:text-gray-400">
-                    {{ $enroll->class->schedule }}
-                </p>
+                    <p class="text-sm mt-2 text-gray-500">
+                        Capacity: {{ $class->students->count() }} / {{ $class->max_students }}
+                    </p>
 
-            </div>
-        @empty
-            <p class="text-gray-500 dark:text-gray-400">
-                You have not enrolled in any classes yet.
-            </p>
-        @endforelse
+                </div>
+            @endforeach
 
-    </div>
+        </div>
+
+    @endif
 
 </div>
 

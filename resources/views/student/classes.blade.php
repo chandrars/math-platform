@@ -8,6 +8,14 @@
         Available Classes
     </h2>
 
+@if($classes->isEmpty())
+
+    <div class="bg-yellow-100 text-yellow-700 p-4 rounded">
+        No classes available yet. Please check back later.
+    </div>
+
+@else
+
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
         @foreach($classes as $class)
@@ -67,6 +75,7 @@
         @endforeach
 
     </div>
+@endif
 
 </div>
 

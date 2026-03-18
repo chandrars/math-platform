@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\ClassModel;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -47,4 +48,24 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+	
+	public function isAdmin()
+	{
+		return $this->role === 'admin';
+	}
+
+	public function isTeacher()
+	{
+		return $this->role === 'teacher';
+	}
+	
+	public function enrolledClasses()
+	{
+		return $this->belongsToMany(
+			ClassModel::class,
+			'enrollments',
+			'user_id',
+			'class_model_id'
+		);
+	}
 }

@@ -23,8 +23,17 @@ class ClassModel extends Model
 	
 	public function enrollments()
 	{
-		//return $this->hasMany(Enrollment::class);
 		return $this->hasMany(Enrollment::class, 'class_model_id');
+	}
+	
+	public function classes()
+	{
+		return $this->hasMany(ClassModel::class, 'teacher_id');
+	}
+	
+	public function students()
+	{
+		return $this->belongsToMany(User::class, 'enrollments', 'class_model_id', 'user_id');
 	}
 
 }

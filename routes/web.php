@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ClassController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\StudentController;
 use App\Models\Enrollment;
 use App\Models\ClassModel;
 use Illuminate\Support\Facades\Route;
@@ -109,12 +111,53 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+	Route::get('/student/dashboard', [StudentController::class, 'dashboard'])->name('student.dashboard');
+});
+
+Route::middleware(['auth', 'admin'])->group(function () {
+
+    Route::get('/admin/dashboard', [AdminController::class, 'index']);
+
+    Route::get('/admin/users', [AdminController::class, 'users']);
+
+    //Route::post('/admin/make-teacher/{id}', [AdminController::class, 'makeTeacher']);
+	
+	Route::post('/admin/make-teacher/{id}', [AdminController::class, 'makeTeacher'])
+    ->name('admin.makeTeacher');
+	
+	Route::get('/admin/classes', [AdminController::class, 'classes'])
+        ->name('admin.classes');
+		
+	Route::get('/admin/classes/create', [AdminController::class, 'createClass'])->name('admin.classes.create');
+
+	Route::post('/admin/classes', [AdminController::class, 'storeClass'])->name('admin.classes.store');
+	
+	Route::get('/admin/classes/{id}/enroll', [AdminController::class, 'enrollForm'])->name('admin.enroll.form');
+	
+	Route::post('/admin/classes/{id}/enroll', [AdminController::class, 'enrollStudent'])->name('admin.enroll.store');
+	
+	Route::get('/admin/classes/{id}/assign-teacher', [AdminController::class, 'editTeacher'])
+    ->name('admin.assign.teacher');
+
+	Route::post('/admin/classes/{id}/assign-teacher', [AdminController::class, 'updateTeacher'])
+    ->name('admin.assign.teacher.update');
+	
+	Route::get('/admin/classes/{id}', [AdminController::class, 'showClass'])
+    ->name('admin.classes.show');
+	
+	Route::post('/admin/classes/{id}/enroll', [AdminController::class, 'enrollStudent'])
+    ->name('admin.enroll.store');
+	
+	Route::delete('/admin/classes/{classId}/remove-student/{userId}', 
+    [AdminController::class, 'removeStudent'])->name('admin.remove.student');
 });
 
 Route::get('/dashboard', function () {
 
     if (auth()->user()->role == 'teacher') {
         return redirect('/teacher/classes');
+    } else if (auth()->user()->role == 'admin') {
+        return redirect('/admin/dashboard');
     }
 
     return redirect('/classes');
