@@ -78,7 +78,7 @@ Route::middleware(['auth', 'role:teacher'])->group(function () {
 
         $totalClasses = $classes->count();
 
-        $totalStudents = Enrollment::whereIn('class_id', $classes->pluck('id'))->count();
+        $totalStudents = Enrollment::whereIn('class_model_id', $classes->pluck('id'))->count();
 
         return view('teacher.dashboard', compact('totalClasses', 'totalStudents', 'classes'));
     });
