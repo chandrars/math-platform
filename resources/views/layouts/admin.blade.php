@@ -8,56 +8,34 @@
 
 <body class="bg-gray-100">
 
-<div class="flex h-screen">
+<div class="flex min-h-screen">
 
     <!-- Sidebar -->
-    <aside class="w-64 bg-gray-900 text-white flex flex-col">
+    <aside class="w-64 bg-gray-900 text-white flex flex-col p-4">
+        <h2 class="text-xl font-bold mb-6">Admin Panel</h2>
 
-        <div class="p-4 text-lg font-bold border-b border-gray-700">
-            Admin Panel
-        </div>
+        <a href="/admin/dashboard" class="block px-3 py-2 rounded hover:bg-gray-700">Dashboard</a>
+        <a href="/admin/users" class="block px-3 py-2 rounded hover:bg-gray-700">Users</a>
+        <a href="{{ route('admin.classes') }}" class="block px-3 py-2 rounded hover:bg-gray-700">Classes</a>
 
-        <nav class="flex-1 p-4 space-y-2">
-
-            <a href="/admin/dashboard" class="block px-3 py-2 rounded hover:bg-gray-700">
-                Dashboard
-            </a>
-
-            <a href="/admin/users" class="block px-3 py-2 rounded hover:bg-gray-700">
-                Users
-            </a>
-
-            <a href="{{ route('admin.classes') }}" class="block px-3 py-2 rounded hover:bg-gray-700">
-				Classes
-			</a>
-
-        </nav>
-
-        <div class="p-4 border-t border-gray-700">
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button class="w-full text-left px-3 py-2 bg-red-500 rounded hover:bg-red-600">
-                    Logout
-                </button>
-            </form>
-        </div>
-
+        <form method="POST" action="{{ route('logout') }}" class="mt-auto">
+            @csrf
+            <button class="w-full text-left px-3 py-2 bg-red-500 rounded hover:bg-red-600">
+                Logout
+            </button>
+        </form>
     </aside>
 
     <!-- Main Content -->
-    <div class="flex-1 flex flex-col">
+    <div class="flex-1">
 
         <!-- Header -->
         <header class="bg-white shadow p-4 flex justify-between">
-            <h1 class="text-lg font-semibold">@yield('title')</h1>
-
-            <div>
-                {{ auth()->user()->name }}
-            </div>
+            <h1 class="font-bold">{{ auth()->user()->name }}</h1>
         </header>
 
-        <!-- Content -->
-        <main class="p-6 overflow-y-auto">
+        <!-- Page Content -->
+        <main class="p-6">
             @yield('content')
         </main>
 
