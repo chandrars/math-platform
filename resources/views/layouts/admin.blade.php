@@ -8,38 +8,44 @@
 
 <body class="bg-gray-100">
 
-<div class="flex min-h-screen">
+<!-- 🔵 TOP NAVBAR -->
+<nav class="bg-gray-900 text-white px-6 py-3 flex justify-between items-center">
 
-    <!-- Sidebar -->
-	<aside class="w-64 min-w-[16rem] bg-gray-900 text-white flex flex-col p-4">
-        <h2 class="text-xl font-bold mb-6">Admin Panel</h2>
+    <!-- Left -->
+    <div class="text-lg font-semibold">
+        Admin Panel
+    </div>
 
-        <a href="/admin/dashboard" class="block px-3 py-2 rounded text-white hover:bg-gray-700">Dashboard</a>
-        <a href="/admin/users" class="block px-3 py-2 rounded text-white hover:bg-gray-700">Users</a>
-        <a href="{{ route('admin.classes') }}" class="block px-3 py-2 rounded text-white hover:bg-gray-700">Classes</a>
+    <!-- Center -->
+    <div class="hidden md:flex space-x-6">
+        <a href="/admin/dashboard" class="hover:text-gray-300">Dashboard</a>
+        <a href="/admin/users" class="hover:text-gray-300">Users</a>
+        <a href="{{ route('admin.classes') }}" class="hover:text-gray-300">Classes</a>
+    </div>
 
-        <form method="POST" action="{{ route('logout') }}" class="mt-auto">
+    <!-- Right -->
+    <div>
+        <form method="POST" action="{{ route('logout') }}">
             @csrf
-            <button class="w-full text-left px-3 py-2 bg-red-500 rounded hover:bg-red-600">
+            <button class="bg-red-500 px-3 py-1 rounded hover:bg-red-600">
                 Logout
             </button>
         </form>
-    </aside>
-
-    <!-- Main Content -->
-    <div class="flex-1">
-
-        <header class="bg-white shadow p-4">
-            <h2 class="text-xl font-bold mb-6 text-white">Admin Panel</h2>
-        </header>
-
-        <main class="p-6">
-            @yield('content')
-        </main>
-
     </div>
 
+</nav>
+
+<!-- 🔷 MOBILE MENU -->
+<div class="md:hidden bg-gray-800 text-white px-6 py-3 space-y-2">
+    <a href="/admin/dashboard" class="block">Dashboard</a>
+    <a href="/admin/users" class="block">Users</a>
+    <a href="{{ route('admin.classes') }}" class="block">Classes</a>
 </div>
+
+<!-- 🟢 MAIN CONTENT -->
+<main class="p-6">
+    @yield('content')
+</main>
 
 </body>
 </html>
