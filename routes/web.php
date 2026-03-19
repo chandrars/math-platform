@@ -118,7 +118,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     Route::get('/admin/dashboard', [AdminController::class, 'index']);
 
-    Route::get('/admin/users', [AdminController::class, 'users']);
+    Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
 
     //Route::post('/admin/make-teacher/{id}', [AdminController::class, 'makeTeacher']);
 	
@@ -150,6 +150,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
 	
 	Route::delete('/admin/classes/{classId}/remove-student/{userId}', 
     [AdminController::class, 'removeStudent'])->name('admin.remove.student');
+	
+	Route::get('/admin/users/create', [AdminController::class, 'createUser'])->name('admin.users.create');
+	Route::post('/admin/users/store', [AdminController::class, 'storeUser'])->name('admin.users.store');
+	
 });
 
 Route::get('/dashboard', function () {

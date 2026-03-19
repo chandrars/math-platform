@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin Panel</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+	<script>
+		tailwind.config = {
+			darkMode: 'class'
+		}
+	</script>
+	<script src="https://cdn.tailwindcss.com"></script> 
 </head>
 
 <body class="bg-gray-100">
@@ -19,7 +24,7 @@
     <!-- Center -->
     <div class="hidden md:flex space-x-6">
         <a href="/admin/dashboard" class="hover:text-gray-300">Dashboard</a>
-        <a href="/admin/users" class="hover:text-gray-300">Users</a>
+        <a href="{{ route('admin.users') }}" class="hover:text-gray-300">Users</a>
         <a href="{{ route('admin.classes') }}" class="hover:text-gray-300">Classes</a>
     </div>
 

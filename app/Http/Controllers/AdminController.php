@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\ClassModel;
 use App\Models\Enrollment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -15,11 +16,10 @@ class AdminController extends Controller
 		return view('admin.dashboard');
 	}
 
-    public function users()
+	public function users()
 	{
-		return view('admin.users', [
-			'users' => User::latest()->get()
-		]);
+		$users = User::latest()->get();
+		return view('admin.users', compact('users'));
 	}
 
 	public function makeTeacher($id)
@@ -161,5 +161,27 @@ class AdminController extends Controller
 		$enrollment->delete();
 
 		return back()->with('success', 'Student removed successfully');
+	}
+	
+	public function createUser()
+	{
+		return view('admin.create-user');
+	}
+
+	public function storeUser(Request $request)
+	{
+		$request->validate([
+			'name' => 'required|string|max:255',
+			'email' => 'required|email|unique:users,email',
+			'password' => 'required|min:8',
+		]);
+
+		User::create([
+			'name' => $request->name,
+			'email' => $request->email,
+			'password' => Hash::make($request->password),
+		]);
+
+		return redirect()->route('admin.users')->with('success', 'User created successfully');
 	}
 }
