@@ -11,12 +11,12 @@
 <div class="flex min-h-screen">
 
     <!-- Sidebar -->
-    <aside class="w-64 bg-gray-900 text-white p-4 flex flex-col">
+	<aside class="w-64 min-w-[16rem] bg-gray-900 text-white flex flex-col p-4">
         <h2 class="text-xl font-bold mb-6">Admin Panel</h2>
 
-        <a href="/admin/dashboard" class="block px-3 py-2 rounded hover:bg-gray-700">Dashboard</a>
-        <a href="/admin/users" class="block px-3 py-2 rounded hover:bg-gray-700">Users</a>
-        <a href="{{ route('admin.classes') }}" class="block px-3 py-2 rounded hover:bg-gray-700">Classes</a>
+        <a href="/admin/dashboard" class="block px-3 py-2 rounded text-white hover:bg-gray-700">Dashboard</a>
+        <a href="/admin/users" class="block px-3 py-2 rounded text-white hover:bg-gray-700">Users</a>
+        <a href="{{ route('admin.classes') }}" class="block px-3 py-2 rounded text-white hover:bg-gray-700">Classes</a>
 
         <form method="POST" action="{{ route('logout') }}" class="mt-auto">
             @csrf
@@ -30,7 +30,7 @@
     <div class="flex-1">
 
         <header class="bg-white shadow p-4">
-            <h1 class="text-lg font-bold">Admin</h1>
+            <h2 class="text-xl font-bold mb-6 text-white">Admin Panel</h2>
         </header>
 
         <main class="p-6">
